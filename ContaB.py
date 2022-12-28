@@ -1,31 +1,58 @@
 from cliente import Cliente
+from Extrato import Extrato
 
 class Conta:
     
-    def __init__(self):
-        self.saldo = 0
-        self._extrato = "" 
+    def __init__(self, numero, cliente):
+        self._saldo = 0
+        self._extrato = Extrato()
+        self._numero = numero
+        self._agencia = "0007"
+        self._cliente = cliente
+        
        
 
+    @property
+    def saldo(self):
+        return self._saldo
+    @property
+    def numero(self):
+        return self._numero
+    @property
+    def agencia(self):
+        return self._agencia
+    @property
+    def cliente(self):
+        return self._cliente
+    @property
+    def historico(self):
+        return self._extrato
+    @classmethod
+    def nova_conta(cls, cliente, numero):
+        return cls(cliente, numero)   
 
-    def depositar(self,valor):
-        if valor > 0:
-            self.saldo += valor
-            self._extrato += "Depositado R$%.2f" % valor + "\n"
-            self.dayLimit = 0
-        else:
-            raise IndexError ("Por favor deposite um valor valido")    
-            
     def sacar(self, valor):
-        if self.dayLimit < 3:
-            if valor <= 500 and valor > 0  and valor <= self.saldo:
-                self.saldo -= valor
-                self.dayLimit += 1
-                self._extrato += "Sacado R$%.2f" % valor + "\n"
-            else:
-                raise IndexError ("Por favor retire um valor valido")             
-        else:
-            raise IndexError("Limite de saque atingido")
+        saldo = self.saldo
+        exedeu_saldo = valor > saldo
 
-    def extrato(self):
-        return str(self._extrato + "\n" + "Saldo atual: R$%.2f" % self.saldo    ) 
+        if exedeu_saldo:
+            print("A operação falhou! você está com saldo insuficiente")
+        elif valor >0:
+            self._saldo-= valor
+            print("Você realizou o saque com sucesso!")
+            return  True
+        else:
+            print("A operação falhou o valor informado é invalido")
+        return False
+
+    def depositar(self, valor):
+       
+    
+        if valor >0:
+            self._saldo += valor
+            print("Você realizou o deposito com sucesso!")
+            return  True
+        else:
+            print("A operação falhou o valor informado é invalido")
+            return False
+

@@ -2,8 +2,7 @@ from ContaB import Conta
 
 
 
-listaC = []
-listaB = {}
+
 c = Conta()
 
 while True:
@@ -13,11 +12,9 @@ while True:
 [2] Ir para Operaçoes
 [3] Para Sair \n'''))
     if ops == 0:
-        listaC.append(str(input("Digite o nome que deseja cadastrar: "))) 
+        
     if ops == 1:
-        nome = input("Digite o nome: ")
-        contat = input("digite a conta: ")
-        listaB[nome] = contat
+       
     if ops == 3:
         break    
     if ops == 2:
